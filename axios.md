@@ -6,9 +6,11 @@
 
 ## Compare Axios with fetch()
 - Automatic transformation of data
-    - Axios automatically transforms the data returned from the server
+    - Axios automatically transforms the data returned from the server, returning data by default.
     - With fetch() you have to call the response.json method to parse the data to a JavaScript object.
-
+- Request type
+- Axios uses a method for each type of request (get, post, put, delete) 
+- fetch() uses the fetch method for all types of requests, and you have to specify the request type (GET, POST, PUT, DELETE) by passing an options object as the second parameter. 
 ## `GET`
 ```javascript
 // With fetch()
@@ -96,4 +98,35 @@ Promise.all(
         console.log(error.toJSON());
     }
 });
+```
+
+
+
+
+GET
+```javascript
+// With Axios:
+axios.get('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+
+// With fetch():
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
 ```
